@@ -24,5 +24,34 @@ namespace PixelArt
         {
             InitializeComponent();
         }
+
+        private void newLienzo(object sender, RoutedEventArgs e)
+        {
+            Thickness borde = new Thickness(0.5);
+            Button boton = (sender as Button);
+            int size = int.Parse(boton.Tag.ToString());
+            lienzo.Children.Clear();
+            for (int j = 0; j < size; j++)
+
+                for (int i = 0; i < size; i++)
+                {
+                    Border pixel = new Border();
+                    pixel.MouseLeftButtonDown += pintar; ;
+                    pixel.BorderThickness = borde;
+                    pixel.Background = Brushes.White;
+                    pixel.BorderBrush = Brushes.Black;
+
+                    lienzo.Children.Add(pixel);
+                }
+            
+        }
+
+        private void pintar(object sender, MouseButtonEventArgs e)
+        {
+            Border borde = sender as Border;
+            borde.Background = Brushes.Black;
+        }
+
     }
+
 }
