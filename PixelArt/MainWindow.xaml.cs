@@ -36,7 +36,8 @@ namespace PixelArt
                 for (int i = 0; i < size; i++)
                 {
                     Border pixel = new Border();
-                    pixel.MouseLeftButtonDown += pintar; ;
+                    pixel.MouseLeftButtonDown += pintar;
+                    pixel.MouseEnter += Pixel_MouseEnter; ;
                     pixel.BorderThickness = borde;
                     pixel.Background = Brushes.White;
                     pixel.BorderBrush = Brushes.Black;
@@ -44,6 +45,15 @@ namespace PixelArt
                     lienzo.Children.Add(pixel);
                 }
             
+        }
+
+        private void Pixel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                Border borde = sender as Border;
+                borde.Background = Brushes.Black;
+            }
         }
 
         private void pintar(object sender, MouseButtonEventArgs e)

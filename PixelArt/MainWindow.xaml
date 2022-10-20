@@ -33,14 +33,14 @@
         <StackPanel DockPanel.Dock="Right" Margin="15,50" VerticalAlignment="Top">
             <Border  BorderBrush="Black" BorderThickness="1">
                 <StackPanel DockPanel.Dock="Top" Style="{StaticResource herramientas}" Margin="10">
-                    <RadioButton Content="Negro"></RadioButton>
-                    <RadioButton Content="Blanco"></RadioButton>
-                    <RadioButton Content="Rojo"></RadioButton>
-                    <RadioButton Content="Verde"></RadioButton>
-                    <RadioButton Content="Azul"></RadioButton>
-                    <RadioButton Content="Amarillo"></RadioButton>
-                    <RadioButton Content="Naranja"></RadioButton>
-                    <RadioButton Content="Rosa"></RadioButton>
+                    <RadioButton Content="Negro" Tag="Black" IsChecked="True"></RadioButton>
+                    <RadioButton Content="Blanco" Tag="White"></RadioButton>
+                    <RadioButton Content="Rojo" Tag="Red"></RadioButton>
+                    <RadioButton Content="Verde" Tag="Green"></RadioButton>
+                    <RadioButton Content="Azul" Tag="Blue"></RadioButton>
+                    <RadioButton Content="Amarillo" Tag="Yellow"></RadioButton>
+                    <RadioButton Content="Naranja" Tag="Orange"></RadioButton>
+                    <RadioButton Content="Rosa" Tag="Pink"></RadioButton>
                     <RadioButton Content="Personalizado"></RadioButton>
                     <TextBox Margin="5"></TextBox>
                 </StackPanel>
