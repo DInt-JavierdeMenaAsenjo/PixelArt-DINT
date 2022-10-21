@@ -33,19 +33,23 @@
         <StackPanel DockPanel.Dock="Right" Margin="15,50" VerticalAlignment="Top">
             <Border  BorderBrush="Black" BorderThickness="1">
                 <StackPanel DockPanel.Dock="Top" Style="{StaticResource herramientas}" Margin="10">
-                    <RadioButton Content="Negro" Tag="Black" IsChecked="True"></RadioButton>
-                    <RadioButton Content="Blanco" Tag="White"></RadioButton>
-                    <RadioButton Content="Rojo" Tag="Red"></RadioButton>
-                    <RadioButton Content="Verde" Tag="Green"></RadioButton>
-                    <RadioButton Content="Azul" Tag="Blue"></RadioButton>
-                    <RadioButton Content="Amarillo" Tag="Yellow"></RadioButton>
-                    <RadioButton Content="Naranja" Tag="Orange"></RadioButton>
-                    <RadioButton Content="Rosa" Tag="Pink"></RadioButton>
-                    <RadioButton Content="Personalizado"></RadioButton>
-                    <TextBox Margin="5"></TextBox>
+                    <RadioButton Content="Negro" Tag="#000000" Checked="cambiaPincel" x:Name="radioNegro"></RadioButton>
+                    <RadioButton Content="Blanco" Tag="#ffffff" Checked="cambiaPincel"></RadioButton>
+                    <RadioButton Content="Rojo" Tag="#ff0000" Checked="cambiaPincel"></RadioButton>
+                    <RadioButton Content="Verde" Tag="#00ff00" Checked="cambiaPincel"></RadioButton>
+                    <RadioButton Content="Azul" Tag="#0000ff" Checked="cambiaPincel"></RadioButton>
+                    <RadioButton Content="Amarillo" Tag="#ffea00" Checked="cambiaPincel"></RadioButton>
+                    <RadioButton Content="Naranja" Tag="#ff6a00" Checked="cambiaPincel"></RadioButton>
+                    <RadioButton Content="Rosa" Tag="#f72adf" Checked="cambiaPincel"></RadioButton>
+                    <RadioButton Content="Personalizado" Checked="cambiaPincel" x:Name="radioPersonalizado" ></RadioButton>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">#</TextBlock>
+                        <TextBox Margin="5" x:Name="personalizado" IsEnabled="False" KeyDown="introduceColor" MaxLength="6"></TextBox>
+                    </DockPanel>
+                    
                 </StackPanel>
             </Border>
-            <Button Content="Rellenar" Margin="10"></Button>
+            <Button Content="Rellenar" Margin="10" Click="rellenar"></Button>
         </StackPanel>
 
         <Border>

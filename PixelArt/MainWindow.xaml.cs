@@ -20,9 +20,12 @@ namespace PixelArt
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Brush pincelActual = Brushes.Black;
         public MainWindow()
         {
             InitializeComponent();
+            radioNegro.IsChecked = true;
+            
         }
 
         private void newLienzo(object sender, RoutedEventArgs e)
@@ -52,16 +55,56 @@ namespace PixelArt
             if(e.LeftButton == MouseButtonState.Pressed)
             {
                 Border borde = sender as Border;
-                borde.Background = Brushes.Black;
+                borde.Background = pincelActual;
             }
         }
 
         private void pintar(object sender, MouseButtonEventArgs e)
         {
             Border borde = sender as Border;
-            borde.Background = Brushes.Black;
+            borde.Background = pincelActual;
         }
 
+        private void rellenar(object sender, RoutedEventArgs e)
+        {
+            foreach (Border b in lienzo.Children)
+            {
+                b.Background = pincelActual;
+            }
+        }
+
+        private void cambiaPincel(object sender, RoutedEventArgs e)
+        {
+
+            //#{0-9a-f}6 creo
+            RadioButton botonPulsado = sender as RadioButton;
+            if (!botonPulsado.Name.Equals("radioPersonalizado"))
+            {
+                personalizado.IsEnabled = false;
+                personalizado.Text = "";
+                pincelActual = (SolidColorBrush)new BrushConverter().ConvertFromString(botonPulsado.Tag.ToString());
+
+            }
+                
+            else
+            {
+                personalizado.IsEnabled = true;
+            }
+            
+        }
+
+        private void introduceColor(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                try
+                {
+                    pincelActual = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + personalizado.Text);
+                }
+                catch { }
+            }
+            
+        }
     }
 
 }
