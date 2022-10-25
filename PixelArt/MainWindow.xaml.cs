@@ -123,7 +123,7 @@ namespace PixelArt
         {
             if(personalizado.Text.Length == 6 && radioPersonalizado.IsChecked == true)
             {
-                if (Regex.IsMatch(personalizado.Text, patron, RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(personalizado.Text, patron))
                     pincelActual = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + personalizado.Text);
                 else 
                 {
