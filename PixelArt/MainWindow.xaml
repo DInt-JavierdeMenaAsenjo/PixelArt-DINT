@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PixelArt"
         mc:Ignorable="d"
         Icon="assets/pincel.ico"
-        Title="Pixel Art" Height="450" Width="800">
+        Title="Pixel Art" Height="450" Width="800" Background="#393e52">
     <Window.Resources>
         <Style TargetType="{x:Type StackPanel}" x:Key="herramientas">
             <!--BorderThickness="3" BorderBrush="Black CornerRadius="5" Margin="10"" -->
@@ -14,6 +14,7 @@
         </Style>
         <Style TargetType="{x:Type RadioButton}">
             <!--BorderThickness="3" BorderBrush="Black CornerRadius="5" Margin="10"" -->
+            <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="Margin" Value="5"/>
         </Style>
         <Style TargetType="{x:Type Button}">
@@ -23,7 +24,7 @@
         </Style>
     </Window.Resources>
     <DockPanel>
-        <GroupBox DockPanel.Dock="Left" Header="Nuevo" Margin="15,50" Height="129" VerticalAlignment="Top">
+        <GroupBox DockPanel.Dock="Left" Header="Nuevo" Margin="15,50" Height="129" VerticalAlignment="Top" Foreground="WHITE">
             <StackPanel Style="{StaticResource herramientas}" VerticalAlignment="Center"  >
                 <Button Tag="15" Click="newLienzo">Pequeño</Button>
                 <Button Tag="25" Click="newLienzo">Mediano</Button>
@@ -31,7 +32,7 @@
             </StackPanel>
         </GroupBox>
         <StackPanel DockPanel.Dock="Right" Margin="15,50" VerticalAlignment="Top">
-            <Border  BorderBrush="Black" BorderThickness="1">
+            <Border  BorderBrush="Black" BorderThickness="1" CornerRadius="15" Background="#5b6385">
                 <StackPanel DockPanel.Dock="Top" Style="{StaticResource herramientas}" Margin="10">
                     <RadioButton Content="Negro" Tag="#000000" Checked="cambiaPincel" x:Name="radioNegro"></RadioButton>
                     <RadioButton Content="Blanco" Tag="#ffffff" Checked="cambiaPincel"></RadioButton>
@@ -43,8 +44,8 @@
                     <RadioButton Content="Rosa" Tag="#f72adf" Checked="cambiaPincel"></RadioButton>
                     <RadioButton Content="Personalizado" Checked="cambiaPincel" x:Name="radioPersonalizado" ></RadioButton>
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Left" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">#</TextBlock>
-                        <TextBox Margin="5" x:Name="personalizado" IsEnabled="False" KeyDown="introduceColor" MaxLength="6"></TextBox>
+                        <TextBlock DockPanel.Dock="Left" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White">#</TextBlock>
+                        <TextBox Margin="5" x:Name="personalizado" IsEnabled="False" MaxLength="6" TextChanged="hexadecimalModificado" GotFocus="quitarHint" Text="FFFFFF"/>
                     </DockPanel>
                     
                 </StackPanel>

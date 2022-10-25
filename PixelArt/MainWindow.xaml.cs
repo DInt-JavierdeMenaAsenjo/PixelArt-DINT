@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,23 +21,24 @@ namespace PixelArt
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Brush pincelActual = Brushes.Black;
+        private Brush pincelActual = Brushes.Black;
+        private bool modificado = false;
+        private string patron = @"^([0-9a-fA-F]{6})$";
         public MainWindow()
         {
             InitializeComponent();
             radioNegro.IsChecked = true;
-            
-        }
+            pintaLienzo(25);
 
-        private void newLienzo(object sender, RoutedEventArgs e)
+
+        }
+        public void pintaLienzo(int tamaño)
         {
             Thickness borde = new Thickness(0.5);
-            Button boton = (sender as Button);
-            int size = int.Parse(boton.Tag.ToString());
             lienzo.Children.Clear();
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < tamaño; j++)
 
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < tamaño; i++)
                 {
                     Border pixel = new Border();
                     pixel.MouseLeftButtonDown += pintar;
@@ -47,6 +49,26 @@ namespace PixelArt
 
                     lienzo.Children.Add(pixel);
                 }
+        }
+        private void newLienzo(object sender, RoutedEventArgs e)
+        {
+            string mensaje = "¿Seguro que quieres borrarlo todo?";
+            string titulo = "Nuevo PixelArt";
+            if (modificado)
+            {
+                if(MessageBox.Show(mensaje,titulo,MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    Button boton = (sender as Button);
+                    int size = int.Parse(boton.Tag.ToString());
+                    pintaLienzo(size);
+                }
+            }else
+            {
+                Button boton = (sender as Button);
+                int size = int.Parse(boton.Tag.ToString());
+                pintaLienzo(size);
+            }
+            
             
         }
 
@@ -54,6 +76,7 @@ namespace PixelArt
         {
             if(e.LeftButton == MouseButtonState.Pressed)
             {
+                modificado = true;
                 Border borde = sender as Border;
                 borde.Background = pincelActual;
             }
@@ -61,12 +84,14 @@ namespace PixelArt
 
         private void pintar(object sender, MouseButtonEventArgs e)
         {
+            modificado = true;
             Border borde = sender as Border;
             borde.Background = pincelActual;
         }
 
         private void rellenar(object sender, RoutedEventArgs e)
         {
+            modificado = true;
             foreach (Border b in lienzo.Children)
             {
                 b.Background = pincelActual;
@@ -75,13 +100,13 @@ namespace PixelArt
 
         private void cambiaPincel(object sender, RoutedEventArgs e)
         {
-
-            //#{0-9a-f}6 creo
+            
+            //^#(?:[0-9a-fA-F]{6})$
             RadioButton botonPulsado = sender as RadioButton;
             if (!botonPulsado.Name.Equals("radioPersonalizado"))
             {
                 personalizado.IsEnabled = false;
-                personalizado.Text = "";
+                personalizado.Foreground = Brushes.Gray;
                 pincelActual = (SolidColorBrush)new BrushConverter().ConvertFromString(botonPulsado.Tag.ToString());
 
             }
@@ -93,17 +118,26 @@ namespace PixelArt
             
         }
 
-        private void introduceColor(object sender, KeyEventArgs e)
+
+        private void hexadecimalModificado(object sender, TextChangedEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if(personalizado.Text.Length == 6 && radioPersonalizado.IsChecked == true)
             {
-                try
-                {
+                if (Regex.IsMatch(personalizado.Text, patron, RegexOptions.IgnoreCase))
                     pincelActual = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + personalizado.Text);
+                else 
+                {
+                   MessageBox.Show("Vuelva a intentarlo. Ejemplo Amarillo = #FFFF00", "Error. Color no reconocido");
                 }
-                catch { }
+                
             }
-            
+        }
+
+        private void quitarHint(object sender, RoutedEventArgs e)
+        {
+
+            personalizado.Text = "";
+            personalizado.Foreground = Brushes.Black;
         }
     }
 
