@@ -34,7 +34,7 @@ namespace PixelArt
         }
         public void pintaLienzo(int tamaño)
         {
-            Thickness borde = new Thickness(0.5);
+            Thickness borde = new Thickness(0.1);
             lienzo.Children.Clear();
             for (int j = 0; j < tamaño; j++)
 
