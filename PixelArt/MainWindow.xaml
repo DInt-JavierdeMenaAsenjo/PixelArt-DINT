@@ -24,13 +24,17 @@
         </Style>
     </Window.Resources>
     <DockPanel>
-        <GroupBox DockPanel.Dock="Left" Header="Nuevo" Margin="15,50" Height="129" VerticalAlignment="Top" Foreground="WHITE">
-            <StackPanel Style="{StaticResource herramientas}" VerticalAlignment="Center"  >
-                <Button Tag="15" Click="newLienzo">Pequeño</Button>
-                <Button Tag="25" Click="newLienzo">Mediano</Button>
-                <Button Tag="35" Click="newLienzo">Grande</Button>
-            </StackPanel>
-        </GroupBox>
+        <StackPanel DockPanel.Dock="Left">
+            <GroupBox  Header="Nuevo" Margin="15,50" Height="129" VerticalAlignment="Top" Foreground="WHITE">
+                <StackPanel Style="{StaticResource herramientas}" VerticalAlignment="Center"  >
+                    <Button Tag="15" Click="newLienzo">Pequeño</Button>
+                    <Button Tag="25" Click="newLienzo">Mediano</Button>
+                    <Button Tag="35" Click="newLienzo">Grande</Button>
+                </StackPanel>
+            </GroupBox>
+            <Button Click="DescargarClick" Height="28">Guardar como...</Button>
+        </StackPanel>
+        
         <StackPanel DockPanel.Dock="Right" Margin="15,50" VerticalAlignment="Top">
             <Border  BorderBrush="Black" BorderThickness="1" CornerRadius="15" Background="#5b6385">
                 <StackPanel DockPanel.Dock="Top" Style="{StaticResource herramientas}" Margin="10">
@@ -53,8 +57,8 @@
             <Button Content="Rellenar" Margin="10" Click="rellenar"></Button>
         </StackPanel>
 
-        <Border>
-            <UniformGrid x:Name="lienzo" Margin="20"></UniformGrid>
+        <Border Margin="20">
+            <UniformGrid x:Name="lienzo"></UniformGrid>
         </Border>
     </DockPanel>
 </Window>

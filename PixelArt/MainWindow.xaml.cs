@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -42,7 +43,7 @@ namespace PixelArt
                 {
                     Border pixel = new Border();
                     pixel.MouseLeftButtonDown += pintar;
-                    pixel.MouseEnter += Pixel_MouseEnter; ;
+                    pixel.MouseEnter += Pixel_MouseEnter;
                     pixel.BorderThickness = borde;
                     pixel.Background = Brushes.White;
                     pixel.BorderBrush = Brushes.Black;
@@ -139,6 +140,32 @@ namespace PixelArt
             personalizado.Text = "";
             personalizado.Foreground = Brushes.Black;
         }
+        private void DescargarClick(object sender, RoutedEventArgs e)
+        {
+            RenderTargetBitmap bitmap = new RenderTargetBitmap((int)this.lienzo.ActualWidth, (int)this.lienzo.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(this.lienzo);
+
+            var dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.Title = "Guardar como..."; // instead of default "Save As"
+            dialog.FileName = "PixelArt"; // Filename will then be "select.this.directory"
+            dialog.Filter = "Imagenes | *.jpeg";
+            dialog.DefaultExt = "jpeg";
+            
+            if (dialog.ShowDialog() == true)
+            {
+                string path = dialog.FileName;
+                // If user has changed the filename, create the new directory
+                using (FileStream stream = File.Create($"{path}"))
+                {
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    encoder.QualityLevel = 90;
+                    encoder.Frames.Add(BitmapFrame.Create(bitmap));
+                    encoder.Save(stream);
+                }
+            }
+
+        }
+
     }
 
 }
